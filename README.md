@@ -38,10 +38,10 @@ through all transformations and saving them in one directory. Also youl'll
 have searchable files.
 
 ## Event collection view
-![event_collection_view](https://user-images.githubusercontent.com/21205508/147008910-adc3987b-b1ea-41fb-854a-8cfa1c2f67cc.png)
+![event_collection_view](https://user-images.githubusercontent.com/21205508/147009401-3ef823e3-2073-43d3-93f1-a8ef4e9e928d.png)
 
 ## ML workbench view after running the script
-![workbench_view](https://user-images.githubusercontent.com/21205508/147009294-aca97ec8-1ecc-435e-9995-331b5e5c34ee.png)
+![workbench_view](https://user-images.githubusercontent.com/21205508/147009441-73ff1e0c-6037-41a7-a560-70eec8abf2dd.png)
 
 
 TODO: 
