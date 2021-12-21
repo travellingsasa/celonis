@@ -33,7 +33,7 @@ is why we won't create a markdown file for them. This way the directory
 
 structure from the Event Collection view is preserved as opposed to looping 
 
-through all transformations and saving them in one directory. Also youl'll 
+through all transformations and saving them in one directory. Also you'll 
 
 have searchable files.
 
