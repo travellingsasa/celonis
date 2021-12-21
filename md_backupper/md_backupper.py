@@ -1,7 +1,5 @@
-# A collection of pycelonis scripts
-
-## md_backupper
-This script should be executed from the pycelonis ML workbench.
+'''
+This script should be executed from the ML workbench.
 
 - It connects to Celonis 
 
@@ -36,3 +34,28 @@ have searchable files.
 TODO: 
 
 automatic file download
+
+'''
+
+def main():
+    
+    from md_backupper_helper import * 
+
+    import time
+
+    celonis = connect_to_celonis()
+
+    pool_name = select_datapool(celonis)
+
+    data_pool = get_datapool(celonis,pool_name = 'SAP - ECC')
+
+    startTime = time.time()
+
+    create_backup(data_pool)
+
+    executionTime = (time.time() - startTime)
+
+    print(f'\n\n Backup took {str(executionTime/60)} minutes')
+
+if __name__ == '__main__':
+    main()
