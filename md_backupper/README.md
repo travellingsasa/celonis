@@ -1,7 +1,12 @@
-# A soon to be collection of helpful pycelonis scripts
-
 ## md_backupper
 This script should be executed from the pycelonis ML workbench.
+
+Run from bash/zsh
+ 
+```bash
+python md_backupper/md_backupper.py
+```
+
 
 - It connects to Celonis 
 
