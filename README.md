@@ -1,1 +1,1 @@
-# celonis
+# A collection of pycelonis scripts
