@@ -41,7 +41,7 @@ def main():
     
     from md_backupper_helper import * 
 
-    import time
+    from time import perf_counter
 
     celonis = connect_to_celonis()
 
@@ -49,13 +49,13 @@ def main():
 
     data_pool = get_datapool(celonis,pool_name = 'SAP - ECC')
 
-    startTime = time.time()
+    startTime = perf_counter()
 
     create_backup(data_pool)
 
-    executionTime = (time.time() - startTime)
+    executionTime = (perf_counter() - startTime)/60
 
-    print(f'\n\n Backup took {str(executionTime/60)} minutes')
+    print(f'\n\n Backup took {str(executionTime)} minutes')
 
 if __name__ == '__main__':
     main()
