@@ -60,11 +60,15 @@ def make_backup_dir():
     '''
     from pathlib import Path
 
-    Path.mkdir(Path(Path.cwd(),'backups'), exist_ok=False)
+    try:
+        Path(Path.cwd(),'backups').mkdir(exist_ok=False)
+        #Path.mkdir(Path(Path.cwd(),'backups'), exist_ok=False)
+    except FileExistsError:
+        print("No need to make the backups directory - is already there")
     
     backup_dir = Path(Path.cwd(),'backups','backup - ' + get_date()) 
     
-    Path.mkdir(backup_dir, exist_ok=False)
+    backup_dir.mkdir(exist_ok=False)
     
     return(backup_dir)
 
@@ -72,15 +76,12 @@ def is_empty_list(pth):
     
     return(len(pth) == 0)
 
-def is_empty(file):
-    
-    return(file.stat().st_size == 0)
+#def is_empty(file):
+#    return(file.stat().st_size == 0)
 
-def no_markdowns(backup_dir):
-    
-    from pathlib import Path
-    
-    return(len(list(Path(backup_dir).glob("*." + 'py'))) == 0)
+#def no_markdowns(backup_dir):   
+#    from pathlib import Path    
+#    return(len(list(backup_dir.glob("*." + 'py'))) == 0)
 
 
 def get_job_name(job):
@@ -124,7 +125,7 @@ def get_exported_transformations(backup_dir,old_sffx):
     sorts them according to time of last modification
     '''
     
-    transformations_fullname = sorted(Path(backup_dir).glob("*." + old_sffx), key=lambda f: f.stat().st_mtime)
+    transformations_fullname = sorted(backup_dir.glob("*." + old_sffx), key=lambda f: f.stat().st_mtime)
     
     return(transformations_fullname)
 
@@ -162,27 +163,27 @@ def add_text_as_code_block(markdown,file, code_style='sql'):
 def strip_transformation_name(file):
     from pathlib import Path
     
-    return(Path(file).stem.rsplit('Backup of Transformation - ',1)[1])
+    return(file.stem.rsplit('Backup of Transformation - ',1)[1])
 
 def delete_exported_files(files):
     
     from pathlib import Path
     
-    [Path.unlink(file) for file in files] 
+    [file.unlink() for file in files] 
     
 
 def delete_empty_markdowns(backup_dir):
     
     from pathlib import Path
  
-    for file in Path(backup_dir).glob("*." + 'md'):
+    for file in backup_dir.glob("*." + 'md'):
     
         
-        if file.stat().st_size == 0:
+        if file.stat().st_size:
             
             print(f'{file} is empty. Will be deleted now ...')
             
-            Path.unlink(file)
+            file.unlink()
             
   
         
