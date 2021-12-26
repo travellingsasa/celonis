@@ -47,7 +47,7 @@ def main():
 
     pool_name = select_datapool(celonis)
 
-    data_pool = get_datapool(celonis,pool_name = 'SAP - ECC')
+    data_pool = get_datapool(celonis,pool_name)
 
     startTime = perf_counter()
 
