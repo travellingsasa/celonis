@@ -55,7 +55,7 @@ def main():
 
     executionTime = (perf_counter() - startTime)/60
 
-    print('\n\n Backup took {str(executionTime)} minutes')
+    print(f'\n\n Backup took {(executionTime)} minutes')
 
 if __name__ == '__main__':
     main()
