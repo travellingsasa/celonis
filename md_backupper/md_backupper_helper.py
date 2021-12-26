@@ -4,22 +4,20 @@ def get_date():
     
     dt = datetime.datetime.now()
     
-    return dt.strftime("%Y-%m-%d %H:%M").replace(':', '.')
+    return dt.strftime('%Y-%m-%d %H:%M').replace(':', '.')
 
 def connect_to_celonis():
 
     from pycelonis import get_celonis
-    
-    celonis = get_celonis()
         
-    return(celonis)
+    return( get_celonis() )
 
 
 def select_datapool(celonis):
+
+    pools = {'nr': [],'name': []}
     
-    pools = {"nr": [],"name": []}
-    
-    print(f"\nAvailable data pools:\n")
+    print('\nAvailable data pools:\n')
     
     for count, pool in enumerate(celonis.pools):
         
@@ -27,11 +25,11 @@ def select_datapool(celonis):
         
         pools['name'].append(pool.name) 
 
-        print(f"{count} : {pool.name}")
+        print(f'{count} : {pool.name}')
 
     while True:   
 
-        user_input = input("\nPlease select a number or type the name of the data pool that you want to select:\n")
+        user_input = input('\nPlease select a number or type the name of the data pool that you want to select:\n')
         
         if (not user_input.isnumeric() and user_input in pools['name']) or user_input.isnumeric() and int(user_input) in pools['nr']:
 
@@ -39,18 +37,16 @@ def select_datapool(celonis):
 
                 return(user_input)
 
-            else:
+            user_input = int(user_input)
 
-                user_input = int(user_input)
-
-                return(pools.get("name")[user_input])
+            return(pools.get('name')[user_input])
 
         else:
             print(f'You have a typo somewhere. You typed: {user_input}') 
 
 
 
-def get_datapool(celonis,pool_name = "SAP - ECC"):
+def get_datapool(celonis,pool_name = 'SAP - ECC'):
     
     return (celonis.pools.find(pool_name))
 
@@ -62,9 +58,9 @@ def make_backup_dir():
 
     try:
         Path(Path.cwd(),'backups').mkdir(exist_ok=False)
-        #Path.mkdir(Path(Path.cwd(),'backups'), exist_ok=False)
+
     except FileExistsError:
-        print("No need to make the backups directory - is already there")
+        print('No need to make the backups directory - is already there')
     
     backup_dir = Path(Path.cwd(),'backups','backup - ' + get_date()) 
     
@@ -76,25 +72,10 @@ def is_empty_list(pth):
     
     return(len(pth) == 0)
 
-#def is_empty(file):
-#    return(file.stat().st_size == 0)
-
-#def no_markdowns(backup_dir):   
-#    from pathlib import Path    
-#    return(len(list(backup_dir.glob("*." + 'py'))) == 0)
-
 
 def get_job_name(job):
     return(job.name.replace(':', ' -'))
         
-def peek(iterable):
-    try:
-        first = next(iterable)
-    except StopIteration:
-        return None
-    return first, itertools.chain([first], iterable)
-
-
     
 #-----------export helper-----------------------------------
 
@@ -121,13 +102,10 @@ def get_exported_transformations(backup_dir,old_sffx):
     from pathlib import Path
 
     '''
-    Gets the full name and base name of the sql export files and  
-    sorts them according to time of last modification
+    Create transformation full_name from backup_dir
     '''
     
-    transformations_fullname = sorted(backup_dir.glob("*." + old_sffx), key=lambda f: f.stat().st_mtime)
-    
-    return(transformations_fullname)
+    return( sorted(backup_dir.glob('*.' + old_sffx), key=lambda f: f.stat().st_mtime) )
 
 #-----------concat helper-----------------------------------
 
@@ -176,7 +154,7 @@ def delete_empty_markdowns(backup_dir):
     
     from pathlib import Path
  
-    for file in backup_dir.glob("*." + 'md'):
+    for file in backup_dir.glob('*.' + 'md'):
     
         
         if file.stat().st_size:
@@ -236,7 +214,7 @@ def create_backup(data_pool ):
 
         if no_transformation:
 
-            print(f'Skipping to next data job because transformation exports are empty.\n')
+            print('Skipping to next data job because transformation exports are empty.\n')
 
             continue
 
